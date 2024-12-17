@@ -1,0 +1,511 @@
+ :root {
+     --text-color: #333;
+     --bg-color: #f4f4f9;
+     --default-skeleton: rgb(26 26 79 / 0.6);
+     --queue-skeleton: rgb(255 229 180);
+     --queue-status: rgb(255 153 51 / 0.9);
+     --processing-skeleton: rgb(212 245 176);
+     --processing-status: rgb(124 211 137);
+     --processing-done: rgb(124 211 137);
+     --fade-in-duration: 0.5s;
+     --fade-out-duration: 0.5s;
+     --slide-out-duration: 4s;
+     --heading-color: #333;
+     --p-color: #777;
+     --toast-bg: #333;
+     --toast-color: #fff;
+ }
+
+ body {
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+     font-family: 'Arial', sans-serif;
+     font-size: 16px;
+     line-height: 1.5;
+     color: var(--text-color);
+     background-color: var(--bg-color);
+     min-height: 100vh;
+     display: flex;
+     flex-direction: column;
+     /* align-items: center;
+        justify-content: center; */
+     text-rendering: optimizeLegibility;
+     scrollbar-width: thin;
+     scrollbar-color: #6200ea #f4f4f9;
+ }
+
+ * {
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+ }
+
+ body::-webkit-scrollbar {
+     width: 10px;
+     height: 10px;
+ }
+
+ body::-webkit-scrollbar-thumb {
+     background: linear-gradient(45deg, #6200ea, #3700b3);
+     border-radius: 10px;
+     transition: background 0.3s ease;
+     border: 2px solid #f4f4f9;
+ }
+
+ body::-webkit-scrollbar-track {
+     background: #f4f4f9;
+     border-radius: 10px;
+ }
+
+ /* body::-webkit-scrollbar:hover {
+        width: 12px;
+        background: linear-gradient(45deg, #3700b3, #03dac6);
+      } */
+
+ header {
+     background-color: #fff;
+     text-align: center;
+     width: 100%;
+     padding: 20px;
+     /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); */
+ }
+
+ main {
+     flex: 1;
+     /* Takes up remaining space */
+     /* background: #f4f4f9; */
+     padding: 20px;
+ }
+
+ footer {
+     background-color: #3700b3;
+     color: white;
+     text-align: center;
+     padding: 10px;
+ }
+
+ h1 {
+     margin: 0 0 10px;
+     color: var(--heading-color);
+ }
+
+ p {
+     color: var(--p-color);
+     font-size: 1rem;
+ }
+
+ .drop-area {
+     margin: 20px 0;
+     padding: 20px;
+     border: 2px dashed #007bff;
+     border-radius: 10px;
+     background: #f9f9ff;
+     cursor: pointer;
+     transition: 0.3s;
+ }
+
+ .drop-area:hover {
+     background: #eaf3ff;
+ }
+
+ #uploadButton {
+     padding: 10px 20px;
+     font-size: 1rem;
+     color: #fff;
+     background: #007bff;
+     border: none;
+     border-radius: 5px;
+     cursor: pointer;
+     transition: 0.3s;
+ }
+
+ #uploadButton:hover {
+     background: #0056b3;
+ }
+
+ .grid {
+     display: grid;
+     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+     /* 3 columns of equal width */
+     gap: 20px;
+     /* Space between cells */
+     padding: 20px;
+ }
+
+ .cell {
+     background: #f4f4f9;
+     padding: 10px;
+     border: 1px solid #ccc;
+     border-radius: 8px;
+     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+     display: flex;
+     min-width: 0;
+     flex-flow: row nowrap;
+     justify-content: center;
+     outline: none;
+     transition: transform 0.3s ease, opacity 0.3s ease, outline 0.2s ease-in-out;
+     /* transition: outline 0.2s ease-in-out; */
+     animation: fadeSlideIn 0.5s ease forwards;
+     opacity: 0;
+ }
+
+ .cell:hover {
+     outline: 1px solid #888;
+ }
+
+ /* Cell Entry Animation */
+ @keyframes fadeSlideIn {
+     from {
+         opacity: 0;
+         transform: translateY(20px) scale(0.9);
+     }
+
+     to {
+         opacity: 1;
+         transform: translateY(0) scale(1);
+     }
+ }
+
+ /* Cell Exit Animation */
+ @keyframes fadeSlideOut {
+     from {
+         opacity: 1;
+         transform: translateY(0) scale(1);
+     }
+
+     to {
+         opacity: 0;
+         transform: translateY(20px) scale(0.9);
+     }
+ }
+
+ /* Apply exit animation */
+ .cell.exit {
+     animation: fadeSlideOut 0.5s ease forwards;
+ }
+
+
+ .imagePreview {
+     position: relative;
+ }
+
+ .imagePreview img {
+     width: 100px;
+     height: 100px;
+     object-fit: cover;
+     border-radius: 5px;
+     display: block;
+ }
+
+ .details {
+     padding-left: 10px;
+     flex-grow: 1;
+     position: relative;
+ }
+
+ .details>.name {
+     font-size: 0.9rem;
+     text-transform: uppercase;
+     position: relative;
+ }
+
+ .name> :first-child {
+     width: 130px;
+     display: block;
+     overflow: hidden;
+     white-space: nowrap;
+     text-overflow: ellipsis;
+ }
+
+ .details>.size {
+     font-size: 0.7rem;
+ }
+
+ .details>.status {
+     font-size: 0.7rem;
+     position: absolute;
+     bottom: 13px;
+     font-style: italic;
+     opacity: 0.9;
+ }
+
+ .close-cell {
+     position: absolute;
+     top: 0;
+     right: 0;
+     cursor: pointer;
+     font-weight: bold;
+     opacity: 0.8;
+     transition: transform 0.5s ease, color 0.5s ease;
+ }
+
+ .close-cell:hover {
+     /* transform: scale(1.5); */
+     transform: scale(1.2) rotate(180deg);
+     color: #333;
+ }
+
+ .default-skeleton {
+     --middle-color: var(--default-skeleton);
+ }
+
+ .queue-skeleton {
+     --middle-color: var(--queue-skeleton);
+ }
+
+ .queue-status {
+     color: var(--queue-status);
+ }
+
+ .processing-skeleton {
+     --middle-color: var(--processing-skeleton);
+ }
+
+ .processing-status {
+     color: var(--processing-status);
+ }
+
+ .done-status {
+     color: var(--processing-done);
+ }
+
+ .loading {
+     position: absolute;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     opacity: 0.4;
+     background: linear-gradient(90deg,
+             transparent 25%,
+             var(--middle-color),
+             transparent 75%);
+     background-size: 200% 100%;
+     animation: shimmer 1.5s infinite;
+     border-radius: 5px;
+ }
+
+ @keyframes shimmer {
+     0% {
+         background-position: -200% 0;
+     }
+
+     100% {
+         background-position: 200% 0;
+     }
+ }
+
+ /* Toast Container */
+ .toast-container {
+     position: fixed;
+     top: 20px;
+     right: 20px;
+     z-index: 10;
+ }
+
+ /* Toast Notification */
+ .toast {
+     background: var(--toast-bg);
+     color: var(--text-color);
+     padding: 15px 20px;
+     border-radius: 8px;
+     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     animation: fade-in var(--fade-in-duration) ease-out,
+         slide-out var(--fade-out-duration) ease-in var(--slide-out-duration) forwards;
+     min-width: 300px;
+     max-width: 400px;
+ }
+
+ /* Close Button */
+ .close-toast {
+     background: none;
+     border: none;
+     color: #fff;
+     font-size: 18px;
+     cursor: pointer;
+     padding: 0;
+     margin-left: 10px;
+     opacity: 0.8;
+ }
+
+ .close-toast:hover {
+     color: #ff4d4d;
+ }
+
+ /* Animations */
+ @keyframes fade-in {
+     from {
+         opacity: 0;
+         transform: translateY(-20px);
+     }
+
+     to {
+         opacity: 1;
+         transform: translateY(0);
+     }
+ }
+
+ @keyframes slide-out {
+     to {
+         opacity: 0;
+         transform: translateX(100%);
+     }
+ }
+
+ /* modal gallery */
+ .hidden {
+     display: none !important;
+ }
+
+ /* Modal container */
+ .modal {
+     position: fixed;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     backdrop-filter: blur(5px);
+     background-color: rgba(0, 0, 0, 0.8);
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     z-index: 9;
+     opacity: 0;
+     transform: scale(0.7);
+     transition: opacity 0.4s ease, transform 0.4s ease;
+     pointer-events: none;
+ }
+
+ /* Modal content (Grid Layout) */
+ .modal-content {
+     display: grid;
+     grid-template-columns: auto 1fr auto;
+     /* Buttons on sides, image in center */
+     gap: 1rem;
+     align-items: center;
+     /* width: 90%; */
+     /* max-width: 800px; */
+     height: auto;
+     padding: 1rem;
+     /* background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); */
+     animation: fadeSlideInM 0.4s ease-out forwards;
+ }
+
+ @keyframes fadeSlideInM {
+     from {
+         opacity: 0;
+         /* transform: translateY(30px); */
+     }
+
+     to {
+         opacity: 1;
+         /* transform: translateY(0px); */
+     }
+ }
+
+ .modal.open {
+     opacity: 1;
+     /* Fully visible */
+     transform: scale(1);
+     /* Scale to normal */
+     pointer-events: auto;
+     /* Allow interaction */
+ }
+
+ /* Modal image */
+ .modal-image {
+     max-width: 100%;
+     max-height: 100vh;
+     /* Keep image responsive */
+     object-fit: contain;
+     /* Adjust aspect ratio */
+     border-radius: 4px;
+     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+ }
+
+ /* Navigation buttons */
+ button.next,
+ button.prev {
+     background-color: transparent;
+     /* border: 1px solid #ccc; */
+     /* color: black; */
+     font-size: 2rem;
+     padding: 0.5rem;
+     cursor: pointer;
+     border-radius: 50%;
+     width: 50px;
+     height: 50px;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     transition: background-color 0.3s ease;
+ }
+
+ .close-modal {
+     display: block;
+     position: absolute;
+     left: 0;
+     top: 0;
+     font-size: 1.5rem;
+ }
+
+ /* button:hover {
+        background-color: #f0f0f0;
+      } */
+
+ /* Responsive Modal */
+ @media (max-width: 600px) {
+     .modal-content {
+         grid-template-columns: auto 1fr auto;
+         gap: 0.5rem;
+     }
+
+     button.next,
+     button.prev {
+         font-size: 1.5rem;
+         width: 40px;
+         height: 40px;
+     }
+
+     .modal-image {
+         max-height: 60vh;
+     }
+ }
+
+ /* Confirmation box */
+ .confirmation-box {
+     position: absolute;
+     /* Positioned relative to the closest relative parent */
+     background-color: #fff;
+     border: 1px solid #ccc;
+     padding: 10px;
+     border-radius: 5px;
+     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+     z-index: 8;
+ }
+
+ .confirmation-box>p {
+     padding: 10px 5px;
+     letter-spacing: 0.04rem;
+ }
+
+ .cbutton {
+     display: flex;
+     justify-content: space-around;
+     align-items: center;
+ }
+
+ .cbutton button {
+     margin: 5px;
+     padding: 5px 10px;
+     border: none;
+     border-radius: 3px;
+     cursor: pointer;
+     width: 50%;
+ }

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Binarize App</title>
+    <link rel="stylesheet" href="./ui.css">
+  </head>
+  <body>
+    <!-- Toast notification -->
+    <div class="toast-container">
+      <!-- <div class="toast">
+        <p>Notification Message</p>
+        <button class="close-toast">❌</button>
+      </div> -->
+    </div>
+    <!-- Modal -->
+    <div id="modal" class="modal">
+      <!-- <div class="modal-content">
+        <button class="close-modal">❌</button>
+        <button class="prev">↩</button>
+        <img class="modal-image" src="" alt="Modal Image" />
+        <button class="next">↪</button>
+      </div> -->
+    </div>
+    <!-- Confirmation box -->
+    <div id="confirmationBox" class="confirmation-box hidden">
+      <p>Are you sure you want to delete?</p>
+      <div class="cbutton">
+        <button class="yes">Yes</button>
+        <button class="no">No</button>
+      </div>
+    </div>
+
+    <header class="container">
+      <h1>Binarize Images</h1>
+      <p>Drop or Select images to start processing</p>
+      <div id="drop-area" class="drop-area">
+        <input type="file" id="fileInput" multiple accept="image/*" hidden />
+        <button id="uploadButton">Select Images</button>
+      </div>
+    </header>
+    <main>
+      <section class="grid" id="previewList">
+        <!-- <article class="cell">
+          <div class="imagePreview">
+            <img src="" />
+            <span class="loading default-skeleton"></span>
+          </div>
+          <div class="details">
+            <p class="name">
+              <strong>Capture.JPG</strong><span class="close-cell">❌</span>
+            </p>
+            <p class="size">20.75 KB</p>
+            <p class="size">Nov 19, 2024, 07:37 AM</p>
+            <p class="status">
+              <strong>Status:</strong> Wating to be processed
+            </p>
+          </div>
+        </article> -->
+      </section>
+    </main>
+    <footer>Footer</footer>
+    <script type="module" src="main.js"></script>    
+  </body>
+</html>
