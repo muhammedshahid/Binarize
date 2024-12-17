@@ -83,10 +83,10 @@ class TaskManager extends WorkerManager {
             this.activeWorkers[workerId].push(task); // Track active tasks  
             if (this.workers[workerId].isIdle) this.emit("nextTask", workerId)
         }
-        this.emit('updateUI', {
-            type: 'taskAssigned',
-            toastMessage: 'All images are in queue'
-        })
+        // this.emit('updateUI', {
+        //     type: 'taskAssigned',
+        //     toastMessage: 'All images are in queue'
+        // })
     }
 
     handleTaskCompletion(workerId, result) {
