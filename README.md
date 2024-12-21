@@ -51,7 +51,7 @@ This project processes user-uploaded images efficiently using **Web Workers** to
 │
 ├── README.md                 # Project documentation
 └── package.json              # Dependencies (if any)
-
+```
 ---
 
 ## **Technologies Used**
