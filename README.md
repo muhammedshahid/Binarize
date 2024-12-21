@@ -1,10 +1,11 @@
-# Binarize
-
-## https://muhammedshahid.github.io/Binarize/
-
 # **Image Processing Web App Using Web Workers**
 
 This project processes user-uploaded images efficiently using **Web Workers** to offload computational tasks. The app ensures a smooth UI experience while dynamically managing workers and tasks for optimal performance.
+
+---
+
+## **Live**
+- https://muhammedshahid.github.io/Binarize/
 
 ---
 
@@ -29,7 +30,7 @@ This project processes user-uploaded images efficiently using **Web Workers** to
    The **WebWorkerManager** creates and manages workers. Workers process the image data (e.g., converting to binary) and return the results.
 
 4. **Results Display**:  
-   Processed images are updated back in the gallery seamlessly.
+   Processed images are updated back on ui seamlessly.
 
 ---
 
@@ -51,3 +52,13 @@ This project processes user-uploaded images efficiently using **Web Workers** to
 ├── README.md                 # Project documentation
 └── package.json              # Dependencies (if any)
 
+---
+
+## **Technologies Used**
+
+- **HTML5**: Structure of the application
+- **CSS3**: Clean and responsive UI
+- **JavaScript (ES6)**: Core logic, Task Manager, and Web Workers
+- **Web Workers**: Multi-threading for heavy computations
+
+---
