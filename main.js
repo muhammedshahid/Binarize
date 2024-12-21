@@ -118,6 +118,7 @@ function showProcessedImage(rootDivId, dataURL) {
     const cell = document.getElementById(rootDivId)
     cell.querySelector('img').src = dataURL;    
     cell.querySelector('.loading').style.display = 'none'
+    cell.querySelectorAll('.size').forEach(e=>e.classList.add('line-over'))
 }
 
 function drawImgOnCanvas(img) {
