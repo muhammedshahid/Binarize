@@ -222,6 +222,10 @@ p {
     font-size: 0.7rem;
 }
 
+.line-over{
+    text-decoration: line-through;
+}
+
 .details>.status {
     font-size: 0.7rem;
     position: absolute;
